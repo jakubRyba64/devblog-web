@@ -302,12 +302,12 @@ document.addEventListener("keydown", (e) => {
     const form = document.getElementById('contactForm');
     if (!form) return; // formulář je pouze na stránce /kontakt/
 
-    // === WEB3FORMS – jak zapnout skutečné odesílání ===
-    // 1) Otevři https://web3forms.com , zadej svůj e-mail a klikni na "Create Access Key"
-    // 2) Do schránky ti dorazí klíč (tvar např. "a1b2c3d4-1111-2222-3333-444455556666")
-    // 3) Klíč vlož níže místo textu VLOZ_SEM_WEB3FORMS_KEY
-    // Dokud klíč není vložen, formulář funguje přes otevření e-mailového programu (mailto).
-    const WEB3FORMS_KEY = 'VLOZ_SEM_WEB3FORMS_KEY';
+    // === WEB3FORMS – skutečné odesílání formuláře ===
+    // Klíč je nakonfigurován (získán přes https://web3forms.com → "Create Access Key").
+    // Pokud budeš chtít klíč někdy změnit, přepiš hodnotu níže.
+    // Fallback: kdyby zde byl opět zástupný text VLOZ_SEM_WEB3FORMS_KEY,
+    // formulář by se automaticky přepnul na otevření e-mailového programu (mailto).
+    const WEB3FORMS_KEY = '51a3d8ba-1b52-469c-a7cc-6a6b7953bd88';
 
     // Příjemce – e-mail autora (viz také privacy-policy); používá se pro mailto fallback
     const RECIPIENT = 'ryba.jakub23@gmail.com';
