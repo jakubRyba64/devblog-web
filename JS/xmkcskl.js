@@ -307,7 +307,7 @@ document.addEventListener("keydown", (e) => {
     // Pokud budeš chtít klíč někdy změnit, přepiš hodnotu níže.
     // Fallback: kdyby zde byl opět zástupný text VLOZ_SEM_WEB3FORMS_KEY,
     // formulář by se automaticky přepnul na otevření e-mailového programu (mailto).
-    const WEB3FORMS_KEY = '51a3d8ba-1b52-469c-a7cc-6a6b7953bd88';
+    const WEB3FORMS_KEY = 'c8d78e40-39f6-46c6-8445-2d9f9e69b3a9';
 
     // Příjemce – e-mail autora (viz také privacy-policy); používá se pro mailto fallback
     const RECIPIENT = 'jakubryba2020@gmail.com';
