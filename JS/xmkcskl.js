@@ -310,7 +310,7 @@ document.addEventListener("keydown", (e) => {
     const WEB3FORMS_KEY = '51a3d8ba-1b52-469c-a7cc-6a6b7953bd88';
 
     // Příjemce – e-mail autora (viz také privacy-policy); používá se pro mailto fallback
-    const RECIPIENT = 'ryba.jakub23@gmail.com';
+    const RECIPIENT = 'jakubryba2020@gmail.com';
 
     const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
     const PLACEHOLDER = 'VLOZ_SEM_WEB3FORMS_KEY';
