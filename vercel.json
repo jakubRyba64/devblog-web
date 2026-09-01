@@ -1,0 +1,19 @@
+{
+  "redirects": [
+    {
+      "source": "/aboutme.html",
+      "destination": "/about/",
+      "permanent": false
+    },
+    {
+      "source": "/more-artic.html",
+      "destination": "/more/",
+      "permanent": false
+    },
+    {
+      "source": "/post.html",
+      "destination": "/jak-se-naucit-programovat-prakticky-plan-pro-zacatecniky/",
+      "permanent": false
+    }
+  ]
+}

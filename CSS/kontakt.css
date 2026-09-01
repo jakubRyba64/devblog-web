@@ -1,0 +1,265 @@
+/* ============================================================
+   KONTAKTNÍ FORMULÁŘ – DEV BLOG
+   Design sladěný se zbytkem webu (viz :root v main.css).
+   Obsah je vertikálně zarovnaný s navbar kontejnerem
+   (max-width 1189px + padding-inline 56px / 50px / 13px).
+   ============================================================ */
+
+/* -------------------- Kontejner stránky -------------------- */
+.kontakt-main {
+  width: 100%;
+  max-width: 1189px;
+  margin: 0 auto;
+  /* Mobil-first: 13px, sjednoceno s navbar kontejnerem.
+   Svislý rytmus hlavičky řeší .page-head (main.css): 8px od navbaru. */
+  padding: 0 13px 90px;
+}
+
+/* Hlavička stránky používá sdílený styl .page-head-* (definice v main.css) */
+
+/* Úvodní text pod nadpisem používá sdílený .page-head-desc (main.css) –
+   stejná mezera od nadpisu (14px) i typografie jako na "Dalších článcích". */
+
+/* ---------- Obálka formuláře ---------- */
+.kontakt-form-wrap {
+  margin-top: 0; /* mezeru pod hlavičkou (s popisem) řeší .page-head (32px) */
+  max-width: 720px;
+}
+
+/* ---------- Karta formuláře ---------- */
+.ct-card {
+  margin-top: 0; /* 32px mezeru pod hlavičkou drží .page-head – nic nepřidávat */
+  padding: 34px 36px 38px;
+  background: var(--dev-surface, #ffffff);
+  border: 1px solid var(--dev-green-line);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -18px rgba(37, 150, 118, 0.35);
+}
+
+/* ---------- Formulář ---------- */
+.ct-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 22px;
+}
+
+/* Dva sloupce pro jméno + e-mail (od 641 px) */
+.ct-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 22px;
+  min-width: 0;
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  min-width: 0;
+}
+
+.ct-label {
+  color: var(--dev-green-dark);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Hvězdička povinného pole */
+.ct-required {
+  color: var(--dev-green);
+  font-weight: 700;
+  margin-left: 3px;
+}
+
+.ct-input {
+  width: 100%;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--dev-text);
+  background: #ffffff;
+  border: 1px solid var(--dev-green-line);
+  border-radius: 8px;
+  padding: 14px 16px;
+  transition: border-color 160ms ease, background-color 160ms ease,
+              box-shadow 160ms ease;
+}
+
+.ct-input::placeholder {
+  color: var(--dev-muted);
+  opacity: 0.75;
+}
+
+.ct-input:hover {
+  border-color: var(--dev-green);
+}
+
+.ct-input:focus {
+  border-color: var(--dev-green);
+  background: #fdfefe;
+  box-shadow: 0 0 0 4px rgba(37, 150, 118, 0.12);
+  outline: none;
+}
+
+.ct-textarea {
+  min-height: 176px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* ---------- Tlačítko odeslat (odpovídá .signupbtn / .nav-subbtn-1a) ---------- */
+.ct-submit {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  height: 52px;
+  padding: 0 30px;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  background: var(--dev-green);
+  border: 1px solid var(--dev-green);
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px -12px rgba(37, 150, 118, 0.55);
+  transition: background-color 160ms ease, border-color 160ms ease,
+              transform 160ms ease, box-shadow 160ms ease;
+}
+
+.ct-submit:hover {
+  background: var(--dev-green-dark);
+  border-color: var(--dev-green-dark);
+  box-shadow: 0 10px 22px -12px rgba(37, 150, 118, 0.65);
+  transform: translateY(-1px);
+}
+
+.ct-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px -12px rgba(37, 150, 118, 0.5);
+}
+
+.ct-submit:focus-visible {
+  outline: 3px solid rgba(37, 150, 118, 0.24);
+  outline-offset: 3px;
+}
+
+/* ---------- Honeypot (skryté pole proti botům) ---------- */
+.ct-hp {
+  display: none !important;
+  position: absolute;
+  left: -9999px;
+}
+
+/* ---------- Tlačítko během odesílání ---------- */
+.ct-submit:disabled {
+  opacity: 0.65;
+  cursor: progress;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ---------- Stavová zpráva ---------- */
+.ct-status {
+  margin: 2px 0 0;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--dev-green-dark);
+  background: var(--dev-green-soft);
+  border: 1px solid var(--dev-green-line);
+  border-radius: 8px;
+}
+
+.ct-status[hidden] {
+  display: none;
+}
+
+/* ---------- Poznámka o soukromí ---------- */
+.ct-note {
+  margin-top: 24px;
+  color: var(--dev-muted);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.ct-note a {
+  color: var(--dev-green-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.ct-note a:hover {
+  color: var(--dev-green);
+}
+
+.ct-note .ct-required {
+  color: var(--dev-green);
+}
+
+/* ============================================================
+   RESPONZIVITA
+   Breakpointy a paddingu odpovídají navbaru v main.css:
+   – mobil (≤ 769):   padding-inline 13px
+   – tablet (770–1026): padding-inline 50px
+   – desktop (≥ 1027):  padding-inline 56px
+   ============================================================ */
+
+/* Tablety: širší padding, dvousloupcová mřížka už od 641 px */
+@media (min-width: 641px) {
+  .ct-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 770px) and (max-width: 1026px) {
+  .kontakt-main {
+    padding: 0 50px 90px;
+  }
+}
+
+/* Desktop: zarovnání s navbar kontejnerem (56px) */
+@media (min-width: 1027px) {
+  .kontakt-main {
+    padding: 0 56px 90px;
+  }
+}
+
+/* Mobily: jedna úzká karta a plná šířka tlačítka */
+@media (max-width: 769px) {
+  .kontakt-main {
+    padding: 0 13px 90px;
+  }
+
+  .ct-card {
+    padding: 26px 20px 30px;
+    border-radius: 10px;
+  }
+
+  .ct-submit {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Velmi malé displeje (< 420 px): jemné doladění odsazení */
+@media (max-width: 419px) {
+  .ct-card {
+    padding: 22px 16px 26px;
+  }
+
+  .ct-input {
+    padding: 13px 14px;
+  }
+
+  .ct-form {
+    row-gap: 18px;
+  }
+}

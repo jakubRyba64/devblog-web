@@ -1,0 +1,22 @@
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Vercel
+.vercel/
+
+# Optional: keep this if you later use npm
+node_modules/
+
+# Logs
+*.log
+
+# Dev helpers (odkomentuj pokud nechceš v repozitáři)
+# fastlink.html
