@@ -117,19 +117,84 @@
 <main>
 <div class="matwo-devblog-top2">
     <div class="problem">
-        <div class="left-part-top2" id="dbArticleRoot"><!-- dynamický článek z databáze -->
+        <div class="left-part-top2" id="dbArticleRoot"><!-- obsah -->
             <div class="mtodevblog-top2">
                 <h1 class="mainte-top2">Načítám článek…</h1>
                 <div class="inumt-con-top2">
                     <div class="metinf-top2">
                         <p class="tecaada-top2">Publikováno <span class="spantext-top2"></span></p>
                     </div>
+                    <div class="inbts-top2 not-ready">
+                        <button class="jubtn-top" type="button" aria-label="Sdílet článek">
+                            <img class="juimg-top" src="/assets/pictures/share-icon.svg" alt="">
+                        </button>
+                        <button class="jubtn-top" type="button" aria-label="Uložit článek">
+                            <img class="juimg-top" src="/assets/pictures/icon-bookmark.svg" alt="">
+                        </button>
+                        <button class="jubtn-top" type="button" aria-label="Přehrát článek">
+                            <img class="juimg-top" src="/assets/pictures/icon-play-circle.svg" alt="">
+                        </button>
+                        <button class="jubtn-top" type="button" aria-label="Další možnosti">
+                            <img class="juimg-top" src="/assets/pictures/icon-ellipsis-more.svg" alt="">
+                        </button>
+                    </div>
                 </div>
+                <div class="img-ligre-top image-programming-workspace"></div>
             </div>
-            <div class="textpad-mid2">
-                <p class="db-loading" id="dbArticleLoading">Načítám obsah článku…</p>
+
+        <div class="centert-mid2">
+            <div class="centertof-mid2"></div>
+        </div>
+        <div class="textpad-mid2">
+            <p class="db-loading" id="dbArticleLoading">Načítám obsah článku…</p>
+        </div>
+        <div id="dbArticleContent" class="textpad-mid2"></div>
+
+        <div class="centert-mid2">
+            <div class="centertof-mid2"></div>
+        </div>
+        <div class="textpad-mid2 sat-mid22">
+          <p class="sta-text-mid2">Sdílet článek</p>
+            <div class="iciwid-mid2 not-ready">
+              <!-- Facebook -->
+              <a class="icons-mid2 share-fb" target="_blank" rel="noopener noreferrer">
+              <img class="imicon-mid222" src="/assets/pictures/icon-facebook.svg" alt="Sdílet na Facebooku">
+              </a>
+
+              <!-- X / Twitter -->
+              <a class="icons-mid2 share-x" target="_blank" rel="noopener noreferrer">
+              <img class="imicon-mid222" src="/assets/pictures/icon-x-logo.svg" alt="Sdílet na X (Twitter)">
+              </a>
+
+              <!-- LinkedIn -->
+              <a class="icons-mid2 share-li" target="_blank" rel="noopener noreferrer">
+              <img class="imicon-mid222" src="/assets/pictures/icon-linkedin.svg" alt="Sdílet na LinkedIn">
+              </a>
+
+              <!-- E-mail -->
+              <a class="icons-mid2 share-email">
+              <img class="imicon-mid222" src="/assets/pictures/icon-envelope.svg" alt="Poslat e-mailem">
+              </a>
+
+              <!-- Kopírovat odkaz -->
+              <button class="icons-mid2 share-copy" type="button">
+              <img class="imicon-mid222" src="/assets/pictures/icon-link-chain.svg" alt="Zkopírovat odkaz">
+              </button>
             </div>
-            <div id="dbArticleContent" class="textpad-mid2"></div>
+        </div>
+        </div>
+
+        <div class="right-part-top2"><!-- newsletter -->
+            <form class="mainnewsl-top2">
+              <div class="primartext-up-top2">
+                <h3 class="get-your-top2">Novinky ze světa programování</h3>
+                <p class="newsl-mintext-top2">Dostávejte nové návody k HTML, CSS, JavaScriptu, PHP a databázím přímo do e-mailu.</p>
+              </div>
+              <div class="newsl-interct-top2 not-ready">
+                <input class="inoputemail-top2" type="email" autocomplete="email" aria-label="E-mail pro odběr newsletteru" placeholder="Zadejte svůj e-mail…">
+                <button class="signupbtn-top2" type="submit">Přihlásit se</button>
+              </div>
+            </form>
         </div>
     </div>
 </div>

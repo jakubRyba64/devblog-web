@@ -38,6 +38,8 @@
   display: flex;
   flex-direction: column;
   row-gap: 6px;
+  flex: 1;        /* ať text zabere celou šířku karty, ne jen šířku obsahu */
+  min-width: 0;
 }
 
 .db-card .main-tittle2mini {
@@ -49,13 +51,7 @@
   margin: 0;
 }
 
-.db-card-date {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: .02em;
-  color: var(--dev-green, #259676);
-}
+/* datum na kartě už nepoužíváme – náhled = jen titulek + krátký podtitulek */
 
 .db-empty {
   padding: 26px 0;
@@ -91,7 +87,15 @@
 
 /* ---------- Responzivita ---------- */
 
+.db-sec-first .db-secna-con {
+  margin-top: 34px;
+}
+
 @media (max-width: 769px) {
+  .db-sec-first .db-secna-con {
+    margin-top: 18px;
+  }
+
   .db-secna-con {
     margin-bottom: 64px;
   }

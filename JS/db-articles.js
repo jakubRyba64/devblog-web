@@ -29,18 +29,23 @@
        HOMEPAGE – výpis nejnovějších článků (#dbArticles)
        ======================================================= */
 
+    // Krátký podtitulek na kartě – jako u falešných článků na homepage (max ~90 znaků)
+    function shortPerex(text, max) {
+        const t = String(text || '').replace(/\s+/g, ' ').trim();
+        return t.length > max ? t.slice(0, max).replace(/\s+\S*$/, '') + '…' : t;
+    }
+
     function renderCard(post) {
         const link = el('a', 'one-article db-card');
         link.href = '/clanek/?id=' + encodeURIComponent(post.id);
         link.style.textDecoration = 'none';
         link.style.color = 'inherit';
 
-        const meta = el('p', 'db-card-date', formatDate(post.created_at));
+        // Náhled = POUZE titulek + krátký podtitulek (bez data)
         const title = el('h3', 'main-tittle2mini', post.title);
-        const perex = el('p', 'notmain-tittle2', post.excerpt);
+        const perex = el('p', 'notmain-tittle2', shortPerex(post.excerpt, 90));
 
         const body = el('div', 'obsah2');
-        body.appendChild(meta);
         body.appendChild(title);
         body.appendChild(perex);
         link.appendChild(body);
