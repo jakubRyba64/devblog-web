@@ -11,14 +11,23 @@ Cílový hosting: **Alwaysdata** (`jakubryba.alwaysdata.net`).
 | `post.php?id=` | detail jednoho článku (404, když neexistuje) |
 | `login.php` / `logout.php` | přihlášení admina (session + CSRF) |
 | `admin.php` | seznam všech příspěvků včetně konceptů |
-| `admin-edit.php` | vytvoření / úprava příspěvku (validace, unikátní slug) |
+| `admin-edit.php` | vizuální editor článku (perex, obrázky, kategorie, datum, koncept/publikace) |
+| `admin-preview.php` | bezpečný náhled rozepsaného článku bez uložení do databáze |
+| `admin-upload.php` | zabezpečený upload obrázků z editoru |
 | `admin-delete.php` | mazání – jen přes POST + CSRF |
 | `install.php` | JEDNORÁZOVÉ vytvoření admin účtu (pak se zamkne) |
 | `db.php` | PDO připojení (prepared statements všude) |
 | `helpers.php` | escapování, CSRF, slugify, require_login, perex |
 | `schema.sql` | tabulky `users` a `posts` |
 | `config.example.php` | šablona konfigurace → na serveru se z ní udělá `config.php` |
-| `style.css` | tmavý responzivní design |
+| `admin.css` / `admin-editor.js` | světlá responzivní administrace v designu DevBlogu |
+| `style.css` | základní vzhled přihlášení a jednoduchých veřejných PHP stránek |
+
+## Přechod ze staré administrace
+
+Před nasazením nové administrace nad existující databází spusťte jednou soubor
+`migration-2026-admin.sql`. Přidá perex, kategorii, hlavní obrázek, formát obsahu
+a datum publikace. Existující články zachová a označí jejich starý obsah jako prostý text.
 
 ## Zabezpečení (co projekt učí)
 

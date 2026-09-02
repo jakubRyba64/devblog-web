@@ -13,3 +13,6 @@ const DB_PASS = 'ZMEN_ME';
 
 const SITE_NAME = 'Můj PHP blog';
 const SITE_URL  = 'https://jakubryba.alwaysdata.net';
+
+// Adresa statického frontendu s veřejnými detaily článků.
+const FRONTEND_URL = 'https://blog-v1-theta.vercel.app';
