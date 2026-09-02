@@ -12,7 +12,7 @@ Osobní blog **DevBlog** – výukové články o programování (HTML, CSS, Jav
 ## Architektura (2 části)
 
 ### 1. Statický frontend (tento repozitář)
-- `index.html` – homepage: velký článek vlevo + karty vpravo + newsletter + „Nejčtenější návody"
+- `index.html` – homepage: články se načítají výhradně z Alwaysdata API, doplněné newsletterem
 - `clanek/index.html` – univerzální detail článku z databáze (`/clanek/?id=X`)
 - `more/`, `about/`, `kontakt/`, `privacy-policy/`, `404.html`
 - `JS/db-articles.js` – načítá články z JSON API a vkládá je do designu webu
@@ -33,22 +33,13 @@ Osobní blog **DevBlog** – výukové články o programování (HTML, CSS, Jav
 
 - **Články se negenerují staticky** – web je čte živě z API (koncepty se nikdy nevypouští ven)
 - **XSS ochrana**: veškerá data z API se vkládají přes `textContent`/`createElement`, ne `innerHTML`
-- **Vizuál karet z DB je identický s falešnými kartami** – stejné třídy (`one-article`,
+- **Vizuál karet z DB navazuje na původní karty** – stejné třídy (`one-article`,
   `img2 image-*`, `main-tittle2mini`, `notmain-tittle2`)
 - **Obrázky článků** mají CSS třídy `.image-*` v main.css → `assets/pictures/articles/`
-- Sekci „NEJNOVĚJŠÍ ČLÁNKY" z vršku homepage jsme smazali; nejnovější článek z DB
-  teď sedí jako první malá karta vpravo nahoře
+- Všechny karty na homepage i `/more/` vznikají z publikovaných záznamů v API
 - Web má meta `noindex, nofollow` (zatím soukromý/projekt do školy)
 
-## Známé „falešné" (statické) články – mají teď vlastní stránky, kandidáti na přesun do DB
-- „Jak se naučit programovat: praktický plán pro začátečníky" (ručně psaná stránka,
-  redirect z `/post.html` v vercel.json)
-- „JavaScript od základů: proměnné, funkce a DOM" (homepage karta)
-- „Git a GitHub bez stresu: první verzování projektu" (homepage karta)
-- „HTML a CSS: pevné základy moderního webu" (more/)
-- „JavaScript v praxi: interaktivní web krok za krokem" (more/)
-- „Git a GitHub: bezpečné verzování projektů" (more/)
-- „PHP a MySQL: propojení formuláře s databází" (more/)
+## Zdroj článků
 
-Nové statické stránky článků se generují skriptem `tools/generate-static-articles.js`
-(šablona = ručně psaná stránka jak-se-naucit-programovat…; spuštění: `node tools/generate-static-articles.js`).
+Statické články a jejich generátor byly odstraněny. Jediným zdrojem veřejných článků je nyní
+tabulka `posts` spravovaná přes administraci na Alwaysdata.

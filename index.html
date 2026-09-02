@@ -115,31 +115,9 @@
 
 <section class="main-container-up">
   <div class="con-width-xx-xx-xx">
-    <a class="left-part" href="/jak-se-naucit-programovat-prakticky-plan-pro-zacatecniky/" style="text-decoration: none; color: inherit;">
-      <div class="imgs image-programming-workspace"></div>
-      <div class="obsah">
-<h1 class="main-tittle">Jak se naučit programovat: praktický plán pro začátečníky</h1>
-        <p class="notmain-tittle">Od prvních základů až k vlastnímu projektu a portfoliu.</p>
-      </div>
-    </a>
-    <aside class="right-part">
-      <!-- Nejnovější článek z databáze – JS ho vykreslí ve stejném designu jako falešné články níže -->
-      <a class="one-article" id="dbLatestArticle" href="/clanek/" hidden style="text-decoration: none; color: inherit;"></a>
-      <a class="one-article" href="/javascript-od-zakladu-promenne-funkce-a-dom/" style="text-decoration: none; color: inherit;">
-        <div class="img2 image-javascript-code"></div>
-        <div class="obsah2">
-<h3 class="main-tittle2mini">JavaScript od základů: proměnné, funkce a DOM</h3>
-          <p class="notmain-tittle2">Naučte se přidat webové stránce logiku, interakce a dynamický obsah.</p>
-        </div>
-      </a>
-      <a class="one-article" href="/git-a-github-bez-stresu-prvni-verzovani-projektu/" style="text-decoration: none; color: inherit;">
-        <div class="img2 image-git-github"></div>
-        <div class="obsah2">
-<h3 class="main-tittle2mini">Git a GitHub bez stresu: první verzování projektu</h3>
-          <p class="notmain-tittle2">Ukládejte změny bezpečně a mějte historii svého kódu pod kontrolou.</p>
-        </div>
-      </a>
-    </aside>
+    <a class="left-part" id="dbFeaturedArticle" href="/clanek/" hidden style="text-decoration: none; color: inherit;"></a>
+    <aside class="right-part" id="dbHomeSideArticles"></aside>
+    <p class="db-list-status" id="dbHomeStatus">Načítám články…</p>
   </div>
 </section>
 
@@ -180,51 +158,19 @@
     </aside>
   
   
-    <aside class="triclan-secna-con">
+    <aside class="triclan-secna-con" id="dbHomeMoreSection" hidden>
       <header class="center-box-section red">
         <div class="xd2 red">
           <div class="just-con">
             <div class="testx1">
-              <h2>Nejčtenější návody</h2>
+              <h2>Další články</h2>
             </div>
             <div class="xxx"></div>
           </div>
         </div>
       </header>
   
-      <div class="triclanky3-main">
-  
-        <article class="fulclanek">
-          <div class="obrazek99 image-developer-learning">
-            <div class="poradi9">1.</div>
-          </div>
-          <div class="obsah99">
-<h3 class="maintext99">7 častých chyb začínajících programátorů</h3>
-            <p class="notmain-tittle2">Zjistěte, jak se vyhnout slepému kopírování kódu a chaosu v projektu.</p>
-          </div>
-        </article>
-  
-        <article class="fulclanek">
-          <div class="obrazek99 image-clean-code">
-            <div class="poradi9">2.</div>
-          </div>
-          <div class="obsah99">
-<h3 class="maintext99">Jak si nastavit VS Code pro pohodlnější práci</h3>
-            <p class="notmain-tittle2">Užitečná rozšíření, zkratky a nastavení pro rychlejší psaní kódu.</p>
-          </div>
-        </article>
-  
-        <article class="fulclanek">
-          <div class="obrazek99 image-backend-development">
-            <div class="poradi9">3.</div>
-          </div>
-          <div class="obsah99">
-<h3 class="maintext99">PHP a MySQL: první dynamická webová aplikace</h3>
-            <p class="notmain-tittle2">Propojte formulář s databází a bezpečně zpracujte uživatelská data.</p>
-          </div>
-        </article>
-  
-      </div>
+      <div class="triclanky3-main" id="dbHomeMoreArticles"></div>
     </aside>
   </div>
 </section>

@@ -72,7 +72,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($exists) $slug = $base . '-' . (++$suffix);
         } while ($exists);
 
-        $publishedAt = $dateValue . ' 00:00:00';
+        $existingPublishedAt = (string)($post['published_at'] ?? '');
+        if ($existingPublishedAt !== '' && substr($existingPublishedAt, 0, 10) === $dateValue && substr($existingPublishedAt, 11) !== '00:00:00') {
+            $publishedAt = $existingPublishedAt;
+        } elseif ($dateValue === date('Y-m-d')) {
+            $publishedAt = date('Y-m-d H:i:s');
+        } else {
+            $publishedAt = $dateValue . ' 00:00:00';
+        }
         if ($id > 0) {
             $stmt = db()->prepare('UPDATE posts SET title = ?, slug = ?, excerpt = ?, category = ?, featured_image = ?, content = ?, content_format = ?, published = ?, published_at = ? WHERE id = ?');
             $stmt->execute([$title, $slug, $intro, $category, $imagePath ?: null, $editorHtml, 'html', (int)$published, $publishedAt, $id]);

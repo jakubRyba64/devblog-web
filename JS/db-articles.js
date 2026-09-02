@@ -22,27 +22,100 @@
     return 'url("' + String(value).replace(/["\\\n\r]/g, '\\$&') + '")';
   }
 
-  async function loadLatestIntoHome() {
-    const slot = document.getElementById('dbLatestArticle');
-    if (!slot) return;
+  function postUrl(post) {
+    return post.slug
+      ? '/clanek/?slug=' + encodeURIComponent(post.slug)
+      : '/clanek/?id=' + encodeURIComponent(post.id);
+  }
+
+  function articleImage(className, post) {
+    const image = el('div', className + ' image-web-development');
+    image.setAttribute('role', 'img');
+    image.setAttribute('aria-label', post.title);
+    if (post.image_url) image.style.backgroundImage = cssImageUrl(post.image_url);
+    return image;
+  }
+
+  function renderFeatured(post) {
+    const card = document.getElementById('dbFeaturedArticle');
+    if (!card || !post) return;
+    const body = el('div', 'obsah');
+    body.appendChild(el('h1', 'main-tittle', post.title));
+    body.appendChild(el('p', 'notmain-tittle', shortPerex(post.excerpt, 150)));
+    card.href = postUrl(post);
+    card.replaceChildren(articleImage('imgs', post), body);
+    card.hidden = false;
+  }
+
+  function renderSideCard(post) {
+    const card = el('a', 'one-article');
+    card.href = postUrl(post);
+    const body = el('div', 'obsah2');
+    body.appendChild(el('h3', 'main-tittle2mini', post.title));
+    body.appendChild(el('p', 'notmain-tittle2', shortPerex(post.excerpt, 90)));
+    card.append(articleImage('img2', post), body);
+    return card;
+  }
+
+  function renderRankedCard(post, index) {
+    const card = el('a', 'fulclanek');
+    card.href = postUrl(post);
+    const image = articleImage('obrazek99', post);
+    image.appendChild(el('div', 'poradi9', String(index + 1) + '.'));
+    const body = el('div', 'obsah99');
+    body.appendChild(el('h3', 'maintext99', post.title));
+    body.appendChild(el('p', 'notmain-tittle2', shortPerex(post.excerpt, 105)));
+    card.append(image, body);
+    return card;
+  }
+
+  function renderGridCard(post) {
+    const card = el('a', 'dvojka-nejslab');
+    card.href = postUrl(post);
+    const body = el('div', 'pobsahh');
+    body.appendChild(el('h3', 'main-minifour', post.title));
+    body.appendChild(el('p', 'notmain-tittle2', shortPerex(post.excerpt, 120)));
+    card.append(articleImage('test-img', post), body);
+    return card;
+  }
+
+  async function loadArticleLists() {
+    const homeStatus = document.getElementById('dbHomeStatus');
+    const allStatus = document.getElementById('dbAllArticlesStatus');
+    if (!homeStatus && !allStatus) return;
     try {
-      const response = await fetch(API_BASE + '?limit=1', { headers: { Accept: 'application/json' } });
+      const response = await fetch(API_BASE + '?limit=50', { headers: { Accept: 'application/json' } });
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const data = await response.json();
-      const post = data.posts && data.posts[0];
-      if (!post) return;
-      slot.href = post.slug ? '/clanek/?slug=' + encodeURIComponent(post.slug) : '/clanek/?id=' + encodeURIComponent(post.id);
-      const image = el('div', 'img2 image-web-development');
-      image.setAttribute('role', 'img');
-      image.setAttribute('aria-label', post.title);
-      if (post.image_url) image.style.backgroundImage = cssImageUrl(post.image_url);
-      const body = el('div', 'obsah2');
-      body.appendChild(el('h3', 'main-tittle2mini', post.title));
-      body.appendChild(el('p', 'notmain-tittle2', shortPerex(post.excerpt, 90)));
-      slot.replaceChildren(image, body);
-      slot.hidden = false;
+      const posts = Array.isArray(data.posts) ? data.posts : [];
+      if (!posts.length) {
+        const message = 'Zatím nebyl publikován žádný článek.';
+        if (homeStatus) homeStatus.textContent = message;
+        if (allStatus) allStatus.textContent = message;
+        return;
+      }
+
+      if (homeStatus) {
+        renderFeatured(posts[0]);
+        const side = document.getElementById('dbHomeSideArticles');
+        posts.slice(1, 3).forEach(function (post) { side.appendChild(renderSideCard(post)); });
+        const remaining = posts.slice(3);
+        const moreSection = document.getElementById('dbHomeMoreSection');
+        const moreContainer = document.getElementById('dbHomeMoreArticles');
+        remaining.slice(0, 3).forEach(function (post, index) { moreContainer.appendChild(renderRankedCard(post, index)); });
+        if (remaining.length) moreSection.hidden = false;
+        homeStatus.hidden = true;
+      }
+
+      if (allStatus) {
+        const grid = document.getElementById('dbAllArticles');
+        posts.forEach(function (post) { grid.appendChild(renderGridCard(post)); });
+        allStatus.hidden = true;
+      }
     } catch (_) {
-      // Při nedostupném API zůstane dynamická karta skrytá.
+      const message = 'Články se nepodařilo načíst. Zkuste stránku obnovit.';
+      if (homeStatus) homeStatus.textContent = message;
+      if (allStatus) allStatus.textContent = message;
     }
   }
 
@@ -114,6 +187,6 @@
       showError('Článek se nepodařilo načíst – zkuste stránku obnovit.', 'Něco se pokazilo', 'Chyba | DevBlog');
     }
   }
-  loadLatestIntoHome();
+  loadArticleLists();
   loadDetail();
 })();
