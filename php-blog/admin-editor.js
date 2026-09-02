@@ -24,6 +24,7 @@
   const cardImagePlaceholder = document.getElementById('cardImagePlaceholder');
   const inlineImageInput = document.getElementById('inlineImageFile');
   let slugWasEdited = slug.value.trim() !== '';
+  let featuredUpload = null;
 
   document.execCommand('defaultParagraphSeparator', false, 'p');
 
@@ -55,18 +56,38 @@
     cardImagePlaceholder.hidden = true;
   }
 
-  function chooseFeatured(file) {
+  async function chooseFeatured(file) {
     if (!file) return;
     if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 5 * 1024 * 1024) {
       window.alert('Vyberte JPG, PNG nebo WebP obrázek do velikosti 5 MB.');
+      imageInput.value = '';
       return;
     }
-    const transfer = new DataTransfer();
-    transfer.items.add(file);
-    imageInput.files = transfer.files;
     removeImageInput.value = '';
     showImage(URL.createObjectURL(file));
     markDirty();
+
+    const data = new FormData();
+    data.append('csrf', form.querySelector('[name="csrf"]').value);
+    data.append('image', file);
+    saveState.lastChild.textContent = 'Nahrávám obrázek…';
+    featuredUpload = fetch('admin-upload.php', { method: 'POST', body: data, credentials: 'same-origin' })
+      .then(async function (response) {
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Nahrání obrázku selhalo.');
+        imagePath.value = result.path;
+        imageInput.value = '';
+        showImage(result.url);
+        saveState.lastChild.textContent = 'Obrázek nahrán';
+      })
+      .catch(function (error) {
+        imagePath.value = '';
+        imageInput.value = '';
+        window.alert(error.message);
+        throw error;
+      })
+      .finally(function () { featuredUpload = null; });
+    return featuredUpload;
   }
 
   title.addEventListener('input', function () {
@@ -85,14 +106,14 @@
   imageDropzone.addEventListener('keydown', function (event) {
     if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); imageInput.click(); }
   });
-  imageInput.addEventListener('change', function () { chooseFeatured(imageInput.files[0]); });
+  imageInput.addEventListener('change', function () { void chooseFeatured(imageInput.files[0]).catch(function () {}); });
   ['dragenter', 'dragover'].forEach(function (name) {
     imageDropzone.addEventListener(name, function (event) { event.preventDefault(); imageDropzone.classList.add('is-dragging'); });
   });
   ['dragleave', 'drop'].forEach(function (name) {
     imageDropzone.addEventListener(name, function (event) { event.preventDefault(); imageDropzone.classList.remove('is-dragging'); });
   });
-  imageDropzone.addEventListener('drop', function (event) { chooseFeatured(event.dataTransfer.files[0]); });
+  imageDropzone.addEventListener('drop', function (event) { void chooseFeatured(event.dataTransfer.files[0]).catch(function () {}); });
   removeImage.addEventListener('click', function (event) {
     event.stopPropagation();
     imageInput.value = '';
@@ -150,7 +171,18 @@
   inlineImageInput.addEventListener('change', function () { uploadInlineImage(inlineImageInput.files[0]); inlineImageInput.value = ''; });
   editor.addEventListener('input', markDirty);
 
-  form.addEventListener('submit', function (event) {
+  form.addEventListener('submit', async function (event) {
+    if (featuredUpload) {
+      event.preventDefault();
+      const pendingSubmitter = event.submitter;
+      try {
+        await featuredUpload;
+        if (pendingSubmitter) form.requestSubmit(pendingSubmitter);
+      } catch (_) {
+        // Chyba už byla zobrazena; formulář bez obrázku neodesíláme.
+      }
+      return;
+    }
     contentInput.value = editor.innerHTML;
     const submitter = event.submitter;
     if (submitter && submitter.id === 'previewButton') return;

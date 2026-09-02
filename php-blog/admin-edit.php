@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $intro = trim((string)($_POST['excerpt'] ?? ''));
     $category = trim((string)($_POST['category'] ?? ''));
     $imagePath = trim((string)($_POST['featured_image'] ?? ''));
-    if (isset($_POST['remove_image'])) $imagePath = '';
+    if (($_POST['remove_image'] ?? '') === '1') $imagePath = '';
     $dateValue = trim((string)($_POST['published_date'] ?? date('Y-m-d')));
     $editorHtml = sanitize_article_html((string)($_POST['content'] ?? ''));
     $action = (string)($_POST['action'] ?? 'draft');

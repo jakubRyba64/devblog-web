@@ -29,7 +29,7 @@
   }
 
   function articleImage(className, post) {
-    const image = el('div', className + ' image-web-development');
+    const image = el('div', className + (post.image_url ? '' : ' db-image-placeholder'));
     image.setAttribute('role', 'img');
     image.setAttribute('aria-label', post.title);
     if (post.image_url) image.style.backgroundImage = cssImageUrl(post.image_url);
@@ -162,6 +162,7 @@
         hero.style.backgroundImage = cssImageUrl(post.image_url);
         hero.classList.remove('image-programming-workspace');
         hero.setAttribute('aria-label', post.title);
+        hero.hidden = false;
       }
       const content = document.getElementById('dbArticleContent');
       if (post.intro) content.appendChild(el('p', 'infote-mid2', post.intro));
