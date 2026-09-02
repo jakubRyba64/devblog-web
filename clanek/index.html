@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="icon" type="image/svg+xml" href="/assets/pictures/devblog-icon.svg">
-    <link rel="stylesheet" href="/CSS/main.css">
-    <link rel="stylesheet" href="/CSS/db-articles.css">
-    <title>Domů | DevBlog</title>
-</head>
-<body>
 
-   <header>
+  <link rel="icon" type="image/svg+xml" href="/assets/pictures/devblog-icon.svg">
+  <link rel="stylesheet" href="/CSS/main.css">
+  <link rel="stylesheet" href="/CSS/post.css">
+  <link rel="stylesheet" href="/CSS/db-articles.css">
+
+  <title>Článek | DevBlog</title>
+</head>
+
+<body>
+    <header>
   <nav class="nav-logmenu-1a">
   <div class="nav-container">
 
@@ -34,7 +37,7 @@
     </button>
 
     <ul class="navbar-rovnemenu-1a">
-      <li><a href="/" aria-current="page">Domů</a></li>
+      <li><a href="/">Domů</a></li>
       <li><a href="/about/">O mě</a></li>
       <li><a href="/kontakt/">Kontakt</a></li>
       <li><a href="/more/">Další články</a></li>
@@ -70,7 +73,7 @@
         <div class="jsciw">
   <div class="div-second-b7c4m"></div>
 
-  <a class="link-new" href="/" aria-current="page">
+  <a class="link-new" href="/">
     <div class="div-inner-k2m8x">
       <p class="text-empty-p4n7b">Domů</p>
       <img class="img-generic-h1s9q" src="/assets/pictures/icon-chevron-right.svg" alt="">
@@ -112,146 +115,24 @@
 </div>
 
 <main>
-
-<section class="main-container-up">
-  <div class="con-width-xx-xx-xx">
-    <article class="left-part">
-      <div class="imgs image-programming-workspace"></div>
-      <div class="obsah">
-<h1 class="main-tittle">Jak se naučit programovat: praktický plán pro začátečníky</h1>
-        <p class="notmain-tittle">Od prvních základů až k vlastnímu projektu a portfoliu.</p>
-      </div>
-    </article>
-    <aside class="right-part">
-      <a class="one-article" href="/jak-se-naucit-programovat-prakticky-plan-pro-zacatecniky/" style="text-decoration: none; color: inherit;">
-        <div class="img2 image-responsive-web"></div>
-        <div class="obsah2">
-<h3 class="main-tittle2mini">Jak vytvořit první responzivní web</h3>
-          <p class="notmain-tittle2">Praktický úvod do HTML a CSS, díky kterému bude stránka fungovat na mobilu i počítači.</p>
+<div class="matwo-devblog-top2">
+    <div class="problem">
+        <div class="left-part-top2" id="dbArticleRoot"><!-- dynamický článek z databáze -->
+            <div class="mtodevblog-top2">
+                <h1 class="mainte-top2">Načítám článek…</h1>
+                <div class="inumt-con-top2">
+                    <div class="metinf-top2">
+                        <p class="tecaada-top2">Publikováno <span class="spantext-top2"></span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="textpad-mid2">
+                <p class="db-loading" id="dbArticleLoading">Načítám obsah článku…</p>
+            </div>
+            <div id="dbArticleContent" class="textpad-mid2"></div>
         </div>
-      </a>
-      <article class="one-article">
-        <div class="img2 image-javascript-code"></div>
-        <div class="obsah2">
-<h3 class="main-tittle2mini">JavaScript od základů: proměnné, funkce a DOM</h3>
-          <p class="notmain-tittle2">Naučte se přidat webové stránce logiku, interakce a dynamický obsah.</p>
-        </div>
-      </article>
-      <article class="one-article">
-        <div class="img2 image-git-github"></div>
-        <div class="obsah2">
-<h3 class="main-tittle2mini">Git a GitHub bez stresu: první verzování projektu</h3>
-          <p class="notmain-tittle2">Ukládejte změny bezpečně a mějte historii svého kódu pod kontrolou.</p>
-        </div>
-      </article>
-    </aside>
-  </div>
-</section>
-
-
-<aside class="offtext-con">
-  <blockquote class="queote-con">
-    <p class="mainquot"><span class="quote-heal">Programování</span> se nejlépe učí tvorbou. Každý malý projekt vás posune o krok dál.</p>
-  </blockquote>
-</aside>
-
-<section class="maxw-eighttwo db-sec">
-  <aside class="db-secna-con">
-    <header class="center-box-section green">
-      <div class="xd2 green">
-        <div class="just-con">
-          <div class="testx1">
-            <h2>Nejnovější články</h2>
-          </div>
-          <div class="xxx"></div>
-        </div>
-      </div>
-    </header>
-
-    <div class="db-articles-grid" id="dbArticles">
-      <p class="db-empty">Načítám nejnovější články…</p>
     </div>
-  </aside>
-</section>
-
-<section class="maxw-eighttwo">
-  <div class="snn-sntc-con">
-    <aside class="news-secna-con">
-      <header class="center-box-section blue">
-        <div class="xd2 blue">
-          <div class="just-con">
-            <div class="testx1">
-              <h2>Nejčtenější návody</h2>
-            </div>
-            <div class="xxx"></div>
-          </div>
-        </div>
-      </header>
-  
-  
-      <div class="center-newsl-con">
-        <form class="mainnewsl">
-          <div class="primartext-up">
-            <h3 class="get-your">Novinky ze světa programování</h3>
-            <p class="newsl-mintext">Dostávejte nové návody k HTML, CSS, JavaScriptu, PHP a databázím přímo do e-mailu.</p>
-          </div>
-          <div class="newsl-interct not-ready">
-            <input class="inoputemail" type="email" autocomplete="email" aria-label="E-mail pro odběr newsletteru" placeholder="Zadejte svůj e-mail…">
-            <button class="signupbtn" type="submit">Přihlásit se</button>
-          </div>
-        </form>
-      </div>
-    </aside>
-  
-  
-    <aside class="triclan-secna-con">
-      <header class="center-box-section red">
-        <div class="xd2 red">
-          <div class="just-con">
-            <div class="testx1">
-              <h2>Nejčtenější návody</h2>
-            </div>
-            <div class="xxx"></div>
-          </div>
-        </div>
-      </header>
-  
-      <div class="triclanky3-main">
-  
-        <article class="fulclanek">
-          <div class="obrazek99 image-developer-learning">
-            <div class="poradi9">1.</div>
-          </div>
-          <div class="obsah99">
-<h3 class="maintext99">7 častých chyb začínajících programátorů</h3>
-            <p class="notmain-tittle2">Zjistěte, jak se vyhnout slepému kopírování kódu a chaosu v projektu.</p>
-          </div>
-        </article>
-  
-        <article class="fulclanek">
-          <div class="obrazek99 image-clean-code">
-            <div class="poradi9">2.</div>
-          </div>
-          <div class="obsah99">
-<h3 class="maintext99">Jak si nastavit VS Code pro pohodlnější práci</h3>
-            <p class="notmain-tittle2">Užitečná rozšíření, zkratky a nastavení pro rychlejší psaní kódu.</p>
-          </div>
-        </article>
-  
-        <article class="fulclanek">
-          <div class="obrazek99 image-backend-development">
-            <div class="poradi9">3.</div>
-          </div>
-          <div class="obsah99">
-<h3 class="maintext99">PHP a MySQL: první dynamická webová aplikace</h3>
-            <p class="notmain-tittle2">Propojte formulář s databází a bezpečně zpracujte uživatelská data.</p>
-          </div>
-        </article>
-  
-      </div>
-    </aside>
-  </div>
-</section>
+</div>
 </main>
 
 <footer class="main-center-fot">
@@ -288,6 +169,7 @@
         </a>
       </nav>
     </aside>
+
     <nav class="last-fot">
       <div class="tritext-fot">
         <a href="/privacy-policy/" class="oneotri-fot" style="text-decoration: none; color: inherit;">
@@ -328,7 +210,6 @@
   <p class="cop-text-fot">© <span class="js-year"></span> <span class="bolt-fot">DevBlog</span>. Všechna práva vyhrazena.</p>
 </div>
 
-<!-- TEMPORARY UNAVAILABLE POPUP -->
 <div id="unavailablePopup" class="unav-popup-hidden">
     <div class="unav-popup-box">
         <button class="unav-close-btn" id="unavCloseBtn" type="button" aria-label="Zavřít">×</button>

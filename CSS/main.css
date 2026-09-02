@@ -576,6 +576,10 @@ input, button, textarea {
   margin: 0;
 }
 
+.xd2.green {
+  margin: 0;
+}
+
 .xd3 {
   display: flex;
   flex-direction: column;
@@ -1767,7 +1771,13 @@ li span {
 
 .xd2.red {margin-bottom: 82px;}
 
+.xd2.green {margin-bottom: 82px;}
+
 .center-box-section.red {
+  padding: 0;
+}
+
+.center-box-section.green {
   padding: 0;
 }
 
@@ -2253,7 +2263,8 @@ li span {
 }
 
 .xd2.blue,
-.xd2.red {
+.xd2.red,
+.xd2.green {
   margin-bottom: 32px;
 }
 
@@ -2344,7 +2355,8 @@ li span {
 
 @media (max-width: 769px) {
   .xd2.blue,
-  .xd2.red {
+  .xd2.red,
+  .xd2.green {
     margin-bottom: 24px;
   }
 
