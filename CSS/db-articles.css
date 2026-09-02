@@ -45,6 +45,31 @@ a.dvojka-nejslab,
   text-decoration: none;
 }
 
+#dbFeaturedArticle,
+#dbHomeSideArticles,
+#dbHomeSideArticles .one-article,
+#dbFeaturedArticle .obsah,
+#dbHomeSideArticles .obsah2 {
+  min-width: 0;
+  width: 100%;
+}
+
+#dbFeaturedArticle .main-tittle,
+#dbHomeSideArticles .main-tittle2mini {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 769px) {
+  #dbHomeSideArticles .one-article {
+    align-items: flex-start;
+  }
+
+  #dbHomeSideArticles .img2 {
+    flex: 0 0 159px;
+    min-width: 0;
+  }
+}
+
 .db-rich-content { color: #242424; font-size: 16px; font-weight: 300; line-height: 1.65; }
 .db-rich-content p { margin: 0 0 24px; }
 .db-rich-content h2,
