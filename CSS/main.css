@@ -215,6 +215,10 @@ input, button, textarea {
   background-image: url("../assets/pictures/articles/backend-development.jpg");
 }
 
+.image-web-development {
+  background-image: url("../assets/pictures/articles/web-development.jpg");
+}
+
 .obsah {
   display: flex;
   flex-direction: column;

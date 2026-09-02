@@ -26,7 +26,10 @@
     }
 
     /* =======================================================
-       HOMEPAGE – výpis nejnovějších článků (#dbArticles)
+       HOMEPAGE – nejnovější článek z databáze (#dbLatestArticle)
+       Vykreslí se do mřížky falešných článků nahoře, a to
+       ve stejném designu (img2 + obsah2 => main-tittle2mini
+       + notmain-tittle2), aby to vypadalo jako zbývající karty.
        ======================================================= */
 
     // Krátký podtitulek na kartě – jako u falešných článků na homepage (max ~90 znaků)
@@ -35,47 +38,37 @@
         return t.length > max ? t.slice(0, max).replace(/\s+\S*$/, '') + '…' : t;
     }
 
-    function renderCard(post) {
-        const link = el('a', 'one-article db-card');
-        link.href = '/clanek/?id=' + encodeURIComponent(post.id);
-        link.style.textDecoration = 'none';
-        link.style.color = 'inherit';
-
-        // Náhled = POUZE titulek + krátký podtitulek (bez data)
-        const title = el('h3', 'main-tittle2mini', post.title);
-        const perex = el('p', 'notmain-tittle2', shortPerex(post.excerpt, 90));
-
-        const body = el('div', 'obsah2');
-        body.appendChild(title);
-        body.appendChild(perex);
-        link.appendChild(body);
-        return link;
-    }
-
-    async function loadHomeList() {
-        const grid = document.getElementById('dbArticles');
-        if (!grid) return;
+    async function loadLatestIntoHome() {
+        const slot = document.getElementById('dbLatestArticle');
+        if (!slot) return;
 
         try {
-            const res = await fetch(API_BASE + '?limit=6', {
+            const res = await fetch(API_BASE + '?limit=1', {
                 headers: { Accept: 'application/json' }
             });
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const data = await res.json();
 
-            grid.innerHTML = '';
+            const post = data.posts && data.posts[0];
+            if (!post) return; // žádný publikovaný článek => slot zůstane skrytý
 
-            if (!data.posts || data.posts.length === 0) {
-                grid.appendChild(el('p', 'db-empty',
-                    'Zatím tu žádný článek není – první brzy přibude. ✍️'));
-                return;
-            }
+            slot.href = '/clanek/?id=' + encodeURIComponent(post.id);
 
-            data.posts.forEach((post) => grid.appendChild(renderCard(post)));
+            // Náhledový obrázek – stejná třída, jakou používají falešné karty
+            const img = el('div', 'img2 image-web-development');
+            img.setAttribute('role', 'img');
+            img.setAttribute('aria-label', post.title);
+
+            // Titulek + krátký podtitulek – stejné třídy jako u falešných článků
+            const body = el('div', 'obsah2');
+            body.appendChild(el('h3', 'main-tittle2mini', post.title));
+            body.appendChild(el('p', 'notmain-tittle2', shortPerex(post.excerpt, 90)));
+
+            slot.appendChild(img);
+            slot.appendChild(body);
+            slot.hidden = false;
         } catch (err) {
-            // API nedostupné => celou sekci tiše skryj, ať nezůstává viset "Načítám…"
-            const section = grid.closest('section');
-            if (section) section.style.display = 'none';
+            // API nedostupné => náhled tiše zůstane skrytý
         }
     }
 
@@ -156,6 +149,6 @@
         }
     }
 
-    loadHomeList();
+    loadLatestIntoHome();
     loadDetail();
 })();

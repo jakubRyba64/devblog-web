@@ -1,62 +1,7 @@
 /* =========================================================
-   ČLÁNKY Z DATABÁZE – dynamická sekce na homepage + /clanek/
-   Barvy vychází z jednotného DevBlog designu (main.css)
+   ČLÁNKY Z DATABÁZE – detail článku /clanek/?id=X
+   (nejnovější článek na homepage používá styly z main.css)
    ========================================================= */
-
-/* ---------- Sekce na homepage ---------- */
-
-.db-secna-con {
-  width: 100%;
-  margin-bottom: 95px;
-}
-
-.db-articles-grid {
-  display: flex;
-  flex-direction: column;
-  row-gap: 18px;
-  padding: 0 50px;
-  width: 100%;
-}
-
-.db-card {
-  display: flex;
-  align-items: center;
-  background: #ffffff;
-  border: 1px solid var(--dev-green-line, #d7e8e1);
-  border-radius: var(--dev-radius, 4px);
-  padding: 18px 22px;
-  transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-}
-
-.db-card:hover {
-  border-color: var(--dev-green, #259676);
-  box-shadow: 0 6px 18px rgba(37, 150, 118, .10);
-  transform: translateY(-1px);
-}
-
-.db-card .obsah2 {
-  display: flex;
-  flex-direction: column;
-  row-gap: 6px;
-  flex: 1;        /* ať text zabere celou šířku karty, ne jen šířku obsahu */
-  min-width: 0;
-}
-
-.db-card .main-tittle2mini {
-  margin: 0;
-}
-
-.db-card .notmain-tittle2 {
-  display: block;
-  margin: 0;
-}
-
-/* datum na kartě už nepoužíváme – náhled = jen titulek + krátký podtitulek */
-
-.db-empty {
-  padding: 26px 0;
-  color: var(--dev-muted, #5c6b66);
-}
 
 /* ---------- Detail článku /clanek/?id=X ---------- */
 
@@ -87,25 +32,8 @@
 
 /* ---------- Responzivita ---------- */
 
-.db-sec-first .db-secna-con {
-  margin-top: 34px;
-}
-
 @media (max-width: 769px) {
-  .db-sec-first .db-secna-con {
-    margin-top: 18px;
-  }
-
-  .db-secna-con {
-    margin-bottom: 64px;
-  }
-
-  .db-articles-grid {
-    padding: 0 20px;
-    row-gap: 12px;
-  }
-
-  .db-card {
-    padding: 14px 16px;
+  .db-error {
+    padding: 8px 0 40px;
   }
 }
