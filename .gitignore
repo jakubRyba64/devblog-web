@@ -18,5 +18,9 @@ node_modules/
 # Logs
 *.log
 
+# PHP blog - lokalni tajemstvi (skutecna hesla do DB)
+php-blog/config.php
+php-blog/install.lock
+
 # Dev helpers (odkomentuj pokud nechceš v repozitáři)
 # fastlink.html
