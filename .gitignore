@@ -18,6 +18,9 @@ node_modules/
 # Logs
 *.log
 
+# Chat memory / history (není součást webu)
+chat_memory_*.txt
+
 # PHP blog - lokalni tajemstvi (skutecna hesla do DB)
 php-blog/config.php
 php-blog/install.lock

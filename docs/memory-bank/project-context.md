@@ -42,4 +42,5 @@ Osobní blog **DevBlog** – výukové články o programování (HTML, CSS, Jav
 ## Zdroj článků
 
 Statické články a jejich generátor byly odstraněny. Jediným zdrojem veřejných článků je nyní
-tabulka `posts` spravovaná přes administraci na Alwaysdata.
+tabulka `posts` spravovaná přes administraci na Alwaysdata. Dne 2026-03-09 byly z repozitáře
+odstraněny i poslední zbytkové složky statických článků (viz `docs/memory-bank/progress.md`).
