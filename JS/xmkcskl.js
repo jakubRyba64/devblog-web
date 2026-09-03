@@ -14,16 +14,18 @@ const menuBtn = document.querySelector(".nav-hammenu-1a");
 const menuOverlay = document.getElementById("mobileMenu");
 const menuClose = document.getElementById("mobileMenuClose");
 
+function closeMobileMenu() {
+    if (menuOverlay) menuOverlay.classList.remove("active");
+    document.body.style.overflow = "auto";
+}
+
 if (menuBtn && menuOverlay && menuClose) {
     menuBtn.addEventListener("click", () => {
         menuOverlay.classList.add("active");
         document.body.style.overflow = "hidden";
     });
 
-    menuClose.addEventListener("click", () => {
-        menuOverlay.classList.remove("active");
-        document.body.style.overflow = "auto";
-    });
+    menuClose.addEventListener("click", closeMobileMenu);
 }
 
 // --- SEARCH AUTOCOMPLETE + MOBILE/TABLET SEARCH PANEL ---
@@ -175,7 +177,10 @@ if (navSearchInput && navSearchResults) {
     }
 
     document.querySelectorAll('.nav-subbtn-1a, .mobile-subscribe-btn').forEach((button) => {
-        button.addEventListener('click', focusNewsletter);
+        button.addEventListener('click', () => {
+            closeMobileMenu();
+            window.requestAnimationFrame(focusNewsletter);
+        });
     });
 
     forms.forEach((form) => {

@@ -832,7 +832,7 @@ padding-bottom: 22px;
 }
 
 .mobile-menu-overlay.active {
-  left: 0;
+  right: 0;
 }
 
 /* Header (close icon) */
@@ -1904,7 +1904,7 @@ li span {
 }
 
 .mobile-menu-overlay.active {
-    left: 0;
+    right: 0;
     display: none;
 }
   .snn-sntc-con {

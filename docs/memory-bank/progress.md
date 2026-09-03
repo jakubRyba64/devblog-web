@@ -1,6 +1,6 @@
 # Průběh práce – co je hotové a co zbývá
 
-> Aktualizuje se po každé větší změně. Poslední aktualizace: 2026-09-02
+> Aktualizuje se po každé větší změně. Poslední aktualizace: 2026-09-03
 
 ## ✅ Hotovo
 
@@ -32,6 +32,23 @@
    soubor (`index.html`, `more/`, `vercel.json`, `JS/*.js`). Veškeré články tak čtou web jen z
    Alwaysdata API. `CSS/post.css`, třídy `.image-*` v main.css i obrázky v
    `assets/pictures/articles/` zůstaly zachovány (používají se pro články z DB).
+
+7. **Mobilní tlačítko „Odebírat“ (2026-09-03)**: kliknutí nyní před přesunem k newsletteru
+   zavře mobilní menu, odebere jeho třídu `active` a obnoví scrollování stránky (`body` už
+   nezůstane uzamčené přes `overflow: hidden`). CSS menu používá pro oba stavy konzistentně
+   vlastnost `right` (`-100%` zavřeno, `0` otevřeno), takže po odebrání `active` overlay skutečně
+   odjede mimo obrazovku.
+8. **Stránka Nástroje dokončena (2026-09-03)**:
+   - `nastroje/index.html` převedena na plnou sdílenou šablonu webu:
+     kompletní hlavička (vyhledávání + hamburger), mobilní menu,
+     footer s copyrightem, popup „dočasně nedostupné“ a načtení `JS/xmkcskl.js`
+   - inline `<style>` přesunut do nového `CSS/nastroje.css` (konvence:
+     stránka = vlastní CSS soubor ve složce `CSS/`), styly využívají `--dev-*`
+     proměnné a hlavičku obsahu `.page-head`
+   - obsah (mřížka nástrojů) zůstal zachován, jen se řídí rytmem webu
+     (šířka/odsazení jako `.main-eight`)
+   - odkaz „Nástroje“ v patičce na všech stránkách teď vede na existující
+     stránku `/nastroje/` (zajišťuje JS v `xmkcskl.js`)
 
 ## 🔲 Zbývá / otevřené (dle priority)
 
