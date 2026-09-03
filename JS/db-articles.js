@@ -98,8 +98,8 @@
       if (homeStatus) {
         renderFeatured(posts[0]);
         const side = document.getElementById('dbHomeSideArticles');
-        posts.slice(1, 3).forEach(function (post) { side.appendChild(renderSideCard(post)); });
-        const remaining = posts.slice(3);
+        posts.slice(1, 4).forEach(function (post) { side.appendChild(renderSideCard(post)); });
+        const remaining = posts.slice(4);
         const moreSection = document.getElementById('dbHomeMoreSection');
         const moreContainer = document.getElementById('dbHomeMoreArticles');
         remaining.slice(0, 3).forEach(function (post, index) { moreContainer.appendChild(renderRankedCard(post, index)); });
