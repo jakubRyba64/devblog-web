@@ -1,5 +1,15 @@
 // --- MOBILE MENU TOGGLE ---
 
+const DEV_BLOG_API = 'https://jakubryba.alwaysdata.net/api.php';
+const DEV_BLOG_NEWSLETTER = 'https://jakubryba.alwaysdata.net/newsletter.php';
+
+// Funkce označené během vývoje jako dočasné jsou nyní zapojené níže.
+document.querySelectorAll('.not-ready').forEach((element) => {
+    element.classList.remove('not-ready');
+    element.removeAttribute('aria-disabled');
+    if (element.getAttribute('title') === 'Zatím není dostupné') element.removeAttribute('title');
+});
+
 const menuBtn = document.querySelector(".nav-hammenu-1a");
 const menuOverlay = document.getElementById("mobileMenu");
 const menuClose = document.getElementById("mobileMenuClose");
@@ -22,21 +32,19 @@ const navSearchInput = document.getElementById("navSearchInput");
 const navSearchResults = document.getElementById("navSearchResults");
 
 if (navSearchInput && navSearchResults) {
-    // základní návrhy – můžeš rozšířit / změnit
-    const SEARCH_SUGGESTIONS = [
-        "programování",
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "PHP",
-        "databáze"
-    ];
+    let searchPosts = [];
+    let visibleSearchPosts = [];
 
-    const createResultItem = (text) => {
+    fetch(DEV_BLOG_API + '?limit=50', { headers: { Accept: 'application/json' } })
+        .then((response) => response.ok ? response.json() : Promise.reject(new Error('HTTP ' + response.status)))
+        .then((data) => { searchPosts = Array.isArray(data.posts) ? data.posts : []; })
+        .catch(() => { searchPosts = []; });
+
+    const createResultItem = (post) => {
         const li = document.createElement("li");
 
         const label = document.createElement("span");
-        label.textContent = text;
+        label.textContent = post.title;
 
         const icon = document.createElement("img");
         icon.src = "/assets/pictures/icon-search.svg";
@@ -46,8 +54,7 @@ if (navSearchInput && navSearchResults) {
         li.appendChild(icon);
 
         li.addEventListener("click", () => {
-            navSearchInput.value = text;
-            navSearchResults.classList.remove("show");
+            window.location.href = '/clanek/?slug=' + encodeURIComponent(post.slug);
         });
 
         return li;
@@ -62,17 +69,21 @@ if (navSearchInput && navSearchResults) {
             return;
         }
 
-        const filtered = SEARCH_SUGGESTIONS.filter((item) =>
-            item.toLowerCase().includes(trimmed)
-        );
+        visibleSearchPosts = searchPosts.filter((post) =>
+            [post.title, post.excerpt, post.category].join(' ').toLowerCase().includes(trimmed)
+        ).slice(0, 6);
 
-        if (filtered.length === 0) {
-            navSearchResults.classList.remove("show");
+        if (visibleSearchPosts.length === 0) {
+            const empty = document.createElement('li');
+            empty.className = 'search-empty';
+            empty.textContent = 'Žádný článek nenalezen';
+            navSearchResults.appendChild(empty);
+            navSearchResults.classList.add("show");
             return;
         }
 
-        filtered.forEach((text) => {
-            navSearchResults.appendChild(createResultItem(text));
+        visibleSearchPosts.forEach((post) => {
+            navSearchResults.appendChild(createResultItem(post));
         });
 
         navSearchResults.classList.add("show");
@@ -83,10 +94,20 @@ if (navSearchInput && navSearchResults) {
     });
 
     navSearchInput.addEventListener("keydown", (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (visibleSearchPosts[0]) window.location.href = '/clanek/?slug=' + encodeURIComponent(visibleSearchPosts[0].slug);
+        }
         if (e.key === "Escape") {
             navSearchResults.classList.remove("show");
             navSearchInput.blur();
         }
+    });
+
+    const searchButton = navSearchInput.closest('form')?.querySelector('button');
+    if (searchButton) searchButton.addEventListener('click', () => {
+        if (visibleSearchPosts[0]) window.location.href = '/clanek/?slug=' + encodeURIComponent(visibleSearchPosts[0].slug);
+        else updateResults(navSearchInput.value);
     });
 
     // zavření dropdownu při kliknutí mimo
@@ -122,10 +143,6 @@ if (navSearchInput && navSearchResults) {
 
     if (mobileSearchBtn) {
         mobileSearchBtn.addEventListener("click", (e) => {
-            // Pokud má tlačítko třídu .not-ready, nechat to na popup handleru
-            if (mobileSearchBtn.classList.contains("not-ready")) {
-                return; // Nechat event probublat k popup handleru
-            }
             e.preventDefault();
             openMobileSearch();
         });
@@ -144,6 +161,65 @@ if (navSearchInput && navSearchResults) {
         }
     });
 }
+
+// --- NEWSLETTER ---
+(function () {
+    const forms = document.querySelectorAll('.mainnewsl, .mainnewsl-top2, .news-fot-fot');
+
+    function focusNewsletter() {
+        const form = forms[0];
+        if (!form) return;
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const input = form.querySelector('input[type="email"]');
+        if (input) window.setTimeout(() => input.focus(), 450);
+    }
+
+    document.querySelectorAll('.nav-subbtn-1a, .mobile-subscribe-btn').forEach((button) => {
+        button.addEventListener('click', focusNewsletter);
+    });
+
+    forms.forEach((form) => {
+        const input = form.querySelector('input[type="email"]');
+        const button = form.querySelector('button[type="submit"]');
+        if (!input || !button) return;
+        let status = form.querySelector('.newsletter-status');
+        if (!status) {
+            status = document.createElement('p');
+            status.className = 'newsletter-status';
+            status.setAttribute('role', 'status');
+            form.appendChild(status);
+        }
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            if (!input.checkValidity()) { input.reportValidity(); return; }
+            button.disabled = true;
+            status.textContent = 'Přihlašuji…';
+            try {
+                const data = new FormData();
+                data.append('email', input.value.trim());
+                const response = await fetch(DEV_BLOG_NEWSLETTER, { method: 'POST', body: data });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.error || 'Přihlášení se nepodařilo.');
+                status.textContent = result.message;
+                input.value = '';
+            } catch (error) {
+                status.textContent = error.message;
+            } finally {
+                button.disabled = false;
+            }
+        });
+    });
+})();
+
+(function () {
+    const clearButton = document.getElementById('clearLocalPreferences');
+    if (!clearButton) return;
+    clearButton.addEventListener('click', () => {
+        Object.keys(localStorage).filter((key) => key.startsWith('devblog-bookmark:')).forEach((key) => localStorage.removeItem(key));
+        const status = document.getElementById('privacySettingsStatus');
+        if (status) status.textContent = 'Uložené záložky byly z tohoto prohlížeče odstraněny.';
+    });
+})();
 
 // --- TEMPORARY UNAVAILABLE POPUP ---
 
@@ -249,6 +325,16 @@ document.addEventListener("keydown", (e) => {
     const shareUrl   = encodeURIComponent(rawUrl);
     const shareTitle = encodeURIComponent(rawTitle);
 
+    document.querySelectorAll('.share-fb').forEach(function (el) {
+        el.href = 'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl;
+    });
+    document.querySelectorAll('.share-x').forEach(function (el) {
+        el.href = 'https://twitter.com/intent/tweet?url=' + shareUrl + '&text=' + shareTitle;
+    });
+    document.querySelectorAll('.share-li').forEach(function (el) {
+        el.href = 'https://www.linkedin.com/sharing/share-offsite/?url=' + shareUrl;
+    });
+
     // E-mail → přímo Gmail compose místo mailto:
     document.querySelectorAll('.share-email').forEach(function (el) {
         el.addEventListener('click', function (e) {
@@ -286,6 +372,106 @@ document.addEventListener("keydown", (e) => {
                 document.body.removeChild(tempInput);
             }
         });
+    });
+})();
+
+// --- OVLÁDÁNÍ ČLÁNKU ---
+(function () {
+    const shareButton = document.querySelector('.article-share');
+    const bookmarkButton = document.querySelector('.article-bookmark');
+    const listenButton = document.querySelector('.article-listen');
+    const moreButton = document.querySelector('.article-more');
+    const articleKey = 'devblog-bookmark:' + window.location.pathname + window.location.search;
+
+    if (shareButton) {
+        shareButton.addEventListener('click', async () => {
+            if (navigator.share) {
+                try { await navigator.share({ title: document.title, url: window.location.href }); } catch (_) {}
+            } else {
+                document.querySelector('.sat-mid22')?.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    if (bookmarkButton) {
+        const refresh = () => {
+            const saved = localStorage.getItem(articleKey) === '1';
+            bookmarkButton.classList.toggle('is-active', saved);
+            bookmarkButton.setAttribute('aria-label', saved ? 'Odebrat článek ze záložek' : 'Uložit článek');
+            bookmarkButton.setAttribute('aria-pressed', String(saved));
+        };
+        refresh();
+        bookmarkButton.addEventListener('click', () => {
+            if (localStorage.getItem(articleKey) === '1') localStorage.removeItem(articleKey);
+            else localStorage.setItem(articleKey, '1');
+            refresh();
+        });
+    }
+
+    if (listenButton && 'speechSynthesis' in window) {
+        let speaking = false;
+        listenButton.addEventListener('click', () => {
+            if (speaking) {
+                window.speechSynthesis.cancel();
+                speaking = false;
+                listenButton.classList.remove('is-active');
+                listenButton.setAttribute('aria-label', 'Přehrát článek');
+                return;
+            }
+            const title = document.querySelector('.mainte-top2')?.textContent || '';
+            const content = document.getElementById('dbArticleContent')?.textContent || '';
+            const utterance = new SpeechSynthesisUtterance((title + '. ' + content).trim());
+            utterance.lang = 'cs-CZ';
+            utterance.onend = utterance.onerror = () => {
+                speaking = false;
+                listenButton.classList.remove('is-active');
+                listenButton.setAttribute('aria-label', 'Přehrát článek');
+            };
+            speaking = true;
+            listenButton.classList.add('is-active');
+            listenButton.setAttribute('aria-label', 'Zastavit přehrávání článku');
+            window.speechSynthesis.speak(utterance);
+        });
+    }
+
+    if (moreButton) moreButton.addEventListener('click', () => {
+        (document.getElementById('dbRelatedSection') || document.querySelector('.sat-mid22'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+})();
+
+// --- PATIČKA: SDÍLENÍ, NÁSTROJE A SOUKROMÍ ---
+(function () {
+    const pageUrl = encodeURIComponent(window.location.href);
+    document.querySelectorAll('.socials-fot').forEach((socials) => {
+        const links = socials.querySelectorAll('a');
+        const destinations = [
+            'https://twitter.com/intent/tweet?url=' + pageUrl,
+            'https://www.youtube.com/results?search_query=web+programov%C3%A1n%C3%AD',
+            'https://www.linkedin.com/sharing/share-offsite/?url=' + pageUrl,
+            'https://www.instagram.com/',
+            'https://pinterest.com/pin/create/button/?url=' + pageUrl
+        ];
+        links.forEach((link, index) => {
+            link.href = destinations[index];
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+        });
+    });
+
+    document.querySelectorAll('.oneotri-fot').forEach((item) => {
+        const heading = item.querySelector('.texttobg-fot')?.textContent.trim();
+        if (heading === 'Nástroje') {
+            item.setAttribute('role', 'link');
+            item.tabIndex = 0;
+            item.addEventListener('click', () => { window.location.href = '/nastroje/'; });
+            item.addEventListener('keydown', (event) => { if (event.key === 'Enter') window.location.href = '/nastroje/'; });
+        }
+        if (heading === 'Nastavení soukromí') {
+            item.setAttribute('role', 'link');
+            item.tabIndex = 0;
+            item.addEventListener('click', () => { window.location.href = '/privacy-policy/#nastaveni-soukromi'; });
+            item.addEventListener('keydown', (event) => { if (event.key === 'Enter') window.location.href = '/privacy-policy/#nastaveni-soukromi'; });
+        }
     });
 })();
 

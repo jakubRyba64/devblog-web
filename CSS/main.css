@@ -1940,6 +1940,19 @@ li span {
   text-decoration-skip-ink: auto;
 }
 
+.newsletter-status {
+  width: 100%;
+  margin: 10px 0 0;
+  color: var(--dev-green-dark, #1d765e);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.jubtn-top.is-active {
+  border-color: var(--dev-green, #259676);
+  background: var(--dev-green-soft, #e9f5f1);
+}
+
 /* Česká lokalizace: prostor pro delší texty */
 .main-tittle,
 .main-tittle2mini,
