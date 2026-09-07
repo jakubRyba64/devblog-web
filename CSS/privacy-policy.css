@@ -18,27 +18,74 @@
 
 /* -------------------- ORIGINAL STYLES -------------------- */
 /* Minimal spacing for a readable policy page (your global CSS resets margins) */
-main { max-width: 1189px; margin: 0 auto; padding: 0 13px 90px; }
-.policy { line-height: 1.65; color: #242424; }
-.policy h1 { font-size: 34px; font-weight: 600; margin: 10px 0 10px; }
-.policy h2 { font-size: 20px; font-weight: 600; margin: 22px 0 8px; }
-.policy p, .policy li { font-size: 16px; font-weight: 300; }
-.policy p { margin: 0 0 12px; }
-.policy ul { margin: 0 0 14px 18px; }
-.policy code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.95em; }
-.policy .meta { font-size: 14px; opacity: 0.8; }
-.policy a { color: inherit; text-decoration: underline; }
-.policy hr { border: 0; border-top: 1px solid rgba(0,0,0,.12); margin: 18px 0; }
+main {
+  max-width: 1189px;
+  margin: 0 auto;
+  padding: 0 13px 90px;
+}
+
+.policy {
+  line-height: 1.65;
+  color: #242424;
+}
+
+.policy h1 {
+  font-size: 34px;
+  font-weight: 600;
+  margin: 10px 0 10px;
+}
+
+.policy h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 22px 0 8px;
+}
+
+.policy p, .policy li {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.policy p {
+  margin: 0 0 12px;
+}
+
+.policy ul {
+  margin: 0 0 14px 18px;
+}
+
+.policy code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.95em;
+}
+
+.policy .meta {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.policy a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.policy hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  margin: 18px 0;
+}
 
 /* Responsive padding matching other pages */
 @media (min-width: 770px) and (max-width: 1026px) {
-  main { padding: 0 50px 90px; }
+  main {
+    padding: 0 50px 90px;
+  }
 }
-
 @media (min-width: 1027px) {
-  main { padding: 0 56px 90px; }
+  main {
+    padding: 0 56px 90px;
+  }
 }
-
 /* Jednotny jednoduchy vzhled pravnich stranek */
 .policy {
   max-width: 820px;

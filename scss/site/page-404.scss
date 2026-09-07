@@ -1,12 +1,15 @@
-@charset "UTF-8";
+@use '../tokens' as tokens;
+
 /* 404 PAGE — minimalistický styl DevBlogu */
+
 .page-404 {
   /* full-viewport canvas (svh helps on mobile with dynamic address bars) */
   min-height: 100vh;
   min-height: 100svh;
   background: #ffffff;
-  color: #242424;
+  color: tokens.$ink;
   margin: 0;
+
   /* page layout: header + main + footer (same structure as other pages) */
   display: flex;
   flex-direction: column;
@@ -33,6 +36,7 @@
   max-width: 1165px;
   margin: 0 auto;
   padding: clamp(28px, 6vh, 72px) 13px;
+
   /* keeps the composition visually centered without fighting the footer */
   min-height: clamp(420px, 62svh, 740px);
   display: flex;
@@ -45,6 +49,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 42px;
+
   /* prevent the layout from drifting too far to the left on wide screens */
   width: 100%;
   max-width: 1040px;
@@ -74,7 +79,7 @@
   border-radius: 999px;
   background: rgba(45, 93, 231, 0.08);
   border: 1px solid rgba(45, 93, 231, 0.18);
-  color: #259676;
+  color: tokens.$brand;
   font-weight: 800;
   letter-spacing: 0.02em;
 }
@@ -83,11 +88,7 @@
   font-weight: 650;
 }
 
-.page-404 .nf-title {
-  font-size: 36px;
-  font-weight: 700;
-  color: #242424;
-}
+.page-404 .nf-title {font-size: 36px;font-weight: 700;color: tokens.$ink;}
 
 .page-404 .nf-sub {
   margin: 16px 0 0;
@@ -127,7 +128,7 @@
 }
 
 .page-404 .nf-btn-primary {
-  background: #259676;
+  background: tokens.$brand;
   color: #ffffff;
   box-shadow: 0 10px 24px rgba(45, 93, 231, 0.16);
 }
@@ -138,13 +139,13 @@
 
 .page-404 .nf-btn-ghost {
   background: transparent;
-  color: #259676;
+  color: tokens.$brand;
   border: 1.5px solid rgba(45, 93, 231, 0.32);
 }
 
 .page-404 .nf-btn-ghost:hover {
   border-color: rgba(45, 93, 231, 0.52);
-  box-shadow: 0 10px 24px rgba(45, 93, 231, 0.1);
+  box-shadow: 0 10px 24px rgba(45, 93, 231, 0.10);
 }
 
 .page-404 .nf-btn:focus-visible {
@@ -161,7 +162,7 @@
 }
 
 .page-404 .nf-meta a {
-  color: #259676;
+  color: tokens.$brand;
   text-decoration: none;
   border-bottom: 1px solid rgba(45, 93, 231, 0.28);
 }
@@ -171,7 +172,7 @@
 }
 
 .page-404 .nf-meta a:focus-visible {
-  outline: 3px solid rgba(45, 93, 231, 0.2);
+  outline: 3px solid rgba(45, 93, 231, 0.20);
   outline-offset: 3px;
   border-bottom-color: transparent;
 }
@@ -196,6 +197,7 @@
     padding: clamp(36px, 7vh, 92px) 13px;
     min-height: clamp(460px, 66svh, 780px);
   }
+
   /* center the whole composition, not glued to the left */
   .page-404 .nf-layout {
     display: grid;
@@ -204,37 +206,46 @@
     row-gap: 0;
     align-items: center;
     justify-content: center;
+
     max-width: 1080px;
   }
+
   .page-404 .nf-card {
     max-width: none;
   }
+
   .page-404 .nf-title {
-    font-size: 36px;
+  font-size: 36px;
   }
+
   .page-404 .nf-visual {
     justify-content: flex-end;
   }
+
   .page-404 .nf-illus {
     width: min(520px, 85%);
   }
 }
+
 @media (min-width: 1027px) {
   .page-404 .nf-stage {
     padding: clamp(44px, 7vh, 110px) 13px;
   }
+
   .page-404 .nf-layout {
     column-gap: 84px;
   }
+
   .page-404 .nf-title {
-    font-size: 36px;
+  font-size: 36px;
   }
 }
+
 /* Jednotny jednoduchy vzhled chybove stranky */
 .page-404 .nf-badge {
-  color: #1d765e;
-  background: #e9f5f1;
-  border-color: #cfe5de;
+  color: tokens.$brand-dark;
+  background: tokens.$brand-soft;
+  border-color: tokens.$brand-line;
   border-radius: 4px;
 }
 
@@ -244,23 +255,23 @@
 }
 
 .page-404 .nf-btn-primary {
-  background: #259676;
+  background: tokens.$brand;
   box-shadow: none;
 }
 
 .page-404 .nf-btn-primary:hover {
-  background: #1d765e;
+  background: tokens.$brand-dark;
   box-shadow: none;
 }
 
 .page-404 .nf-btn-ghost {
-  color: #259676;
-  border-color: #cfe5de;
+  color: tokens.$brand;
+  border-color: tokens.$brand-line;
 }
 
 .page-404 .nf-btn-ghost:hover {
-  background: #e9f5f1;
-  border-color: #259676;
+  background: tokens.$brand-soft;
+  border-color: tokens.$brand;
   box-shadow: none;
 }
 
@@ -270,6 +281,6 @@
 }
 
 .page-404 .nf-meta a {
-  color: #259676;
-  border-bottom-color: #cfe5de;
+  color: tokens.$brand;
+  border-bottom-color: tokens.$brand-line;
 }

@@ -1,4 +1,5 @@
-@charset "UTF-8";
+@use '../tokens' as tokens;
+
 /* -------------------- TEXT OVERFLOW PROTECTION (NASTROJE) -------------------- */
 .tools-grid,
 .tool-card,
@@ -26,11 +27,13 @@
     padding-inline: 50px;
   }
 }
+
 @media (max-width: 769px) {
   .tools-page {
     padding: 0 13px 95px;
   }
 }
+
 /* -------------------- MŘÍŽKA NÁSTROJŮ -------------------- */
 .tools-grid {
   display: grid;
@@ -41,16 +44,19 @@
 .tool-card {
   display: block;
   padding: 26px;
-  border: 1px solid var(--dev-green-line, #cfe5de);
+  border: 1px solid var(--dev-green-line, tokens.$brand-line);
   border-radius: var(--dev-radius, 4px);
-  color: var(--dev-text, #242424);
+  color: var(--dev-text, tokens.$ink);
   text-decoration: none;
   box-shadow: 0 8px 22px rgba(29, 118, 94, 0.07);
-  transition: border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .tool-card:hover {
-  border-color: var(--dev-green, #259676);
+  border-color: var(--dev-green, tokens.$brand);
   transform: translateY(-2px);
 }
 
@@ -58,11 +64,11 @@
   margin: 0 0 8px;
   font-size: 22px;
   font-weight: 700;
-  color: var(--dev-text, #242424);
+  color: var(--dev-text, tokens.$ink);
 }
 
 .tool-card:hover h2 {
-  color: var(--dev-green-dark, #1d765e);
+  color: var(--dev-green-dark, tokens.$brand-dark);
 }
 
 .tool-card p {

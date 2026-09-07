@@ -1,0 +1,11 @@
+{
+  "name": "devblog",
+  "private": true,
+  "scripts": {
+    "build:css": "sass --style=expanded --no-source-map scss/site:CSS scss/php-blog:php-blog",
+    "watch:css": "sass --watch --style=expanded --no-source-map scss/site:CSS scss/php-blog:php-blog"
+  },
+  "devDependencies": {
+    "sass": "^1.92.1"
+  }
+}

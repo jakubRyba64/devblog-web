@@ -1,10 +1,12 @@
-@charset "UTF-8";
+@use '../tokens' as tokens;
+
 /* ============================================================
    KONTAKTNÍ FORMULÁŘ – DEV BLOG
    Design sladěný se zbytkem webu (viz :root v main.css).
    Obsah je vertikálně zarovnaný s navbar kontejnerem
    (max-width 1189px + padding-inline 56px / 50px / 13px).
    ============================================================ */
+
 /* -------------------- Kontejner stránky -------------------- */
 .kontakt-main {
   width: 100%;
@@ -16,8 +18,10 @@
 }
 
 /* Hlavička stránky používá sdílený styl .page-head-* (definice v main.css) */
+
 /* Úvodní text pod nadpisem používá sdílený .page-head-desc (main.css) –
    stejná mezera od nadpisu (14px) i typografie jako na "Dalších článcích". */
+
 /* ---------- Obálka formuláře ---------- */
 .kontakt-form-wrap {
   margin-top: 0; /* mezeru pod hlavičkou (s popisem) řeší .page-head (32px) */
@@ -81,7 +85,8 @@
   border: 1px solid var(--dev-green-line);
   border-radius: 8px;
   padding: 14px 16px;
-  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  transition: border-color 160ms ease, background-color 160ms ease,
+              box-shadow 160ms ease;
 }
 
 .ct-input::placeholder {
@@ -124,7 +129,8 @@
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 8px 18px -12px rgba(37, 150, 118, 0.55);
-  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+  transition: background-color 160ms ease, border-color 160ms ease,
+              transform 160ms ease, box-shadow 160ms ease;
 }
 
 .ct-submit:hover {
@@ -207,45 +213,54 @@
    – tablet (770–1026): padding-inline 50px
    – desktop (≥ 1027):  padding-inline 56px
    ============================================================ */
+
 /* Tablety: širší padding, dvousloupcová mřížka už od 641 px */
 @media (min-width: 641px) {
   .ct-row {
     grid-template-columns: 1fr 1fr;
   }
 }
+
 @media (min-width: 770px) and (max-width: 1026px) {
   .kontakt-main {
     padding: 0 50px 90px;
   }
 }
+
 /* Desktop: zarovnání s navbar kontejnerem (56px) */
 @media (min-width: 1027px) {
   .kontakt-main {
     padding: 0 56px 90px;
   }
 }
+
 /* Mobily: jedna úzká karta a plná šířka tlačítka */
 @media (max-width: 769px) {
   .kontakt-main {
     padding: 0 13px 90px;
   }
+
   .ct-card {
     padding: 26px 20px 30px;
     border-radius: 10px;
   }
+
   .ct-submit {
     width: 100%;
     min-width: 0;
   }
 }
+
 /* Velmi malé displeje (< 420 px): jemné doladění odsazení */
 @media (max-width: 419px) {
   .ct-card {
     padding: 22px 16px 26px;
   }
+
   .ct-input {
     padding: 13px 14px;
   }
+
   .ct-form {
     row-gap: 18px;
   }
